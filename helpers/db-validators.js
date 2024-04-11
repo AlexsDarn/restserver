@@ -29,9 +29,3 @@ module.exports = {
     isEmailValid,
     existsUserById
 }
-
-
-
-/* return res.status(400).json({
-  msg: 'The email already exists'
-}); */

@@ -1,10 +1,10 @@
 const { response } = require('express');
 const bcryptjs = require('bcryptjs');
-const User = require('../models/user');
+const { User } = require('../models');
 
 const usersGet = async(req, res = response) => {
   const { limit = 5, since = 0 } = req.query;
-  const query = {status: true}
+  const query = {status: true};
 
   const [total, users] = await Promise.all([
     User.countDocuments(query),
@@ -48,18 +48,8 @@ const usersPut = async(req, res = response) => {
     res.json(user);
 }
 
-const usersPatch = (req, res = response) => {
-    res.json({
-      "msg": "patch API - controller"
-    });
-}
-
 const usersDelete = async (req, res = response) => {
   const {id} = req.params;
-
-  //physical erase
-  //const user = await User.findByIdAndDelete(id);
-
   const user = await User.findByIdAndUpdate(id, { status: false });
 
   res.json(user);
@@ -69,6 +59,5 @@ module.exports = {
     usersGet, 
     usersPost, 
     usersPut, 
-    usersPatch, 
     usersDelete
 }
